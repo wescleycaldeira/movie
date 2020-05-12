@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.ais</groupId>
+  <artifactId>movie</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <properties>
+    <maven.compiler.target>11</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <maven.compiler.source>11</maven.compiler.source>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <payaraVersion>5.194</payaraVersion>
+    <final.name>movie</final.name>
+    <microprofile.version>3.2</microprofile.version>
+    <jakarta.jakartaee-api.version>8.0.0</jakarta.jakartaee-api.version>
+    <junit-jupiter.version>5.5.0</junit-jupiter.version>
+    <microshed-testing.version>0.6.2</microshed-testing.version>
+    <slf4j-log4j12.version>1.7.29</slf4j-log4j12.version>
+    <postgres.version>42.2.12</postgres.version>
+    <hibernate.version>5.2.10.Final</hibernate.version>
+    <mockito.version>2.23.0</mockito.version>
+    <model-mapper.version>2.3.6</model-mapper.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>${microprofile.version}</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>${jakarta.jakartaee-api.version}</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.microshed</groupId>
+      <artifactId>microshed-testing-liberty</artifactId>
+      <version>${microshed-testing.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j-log4j12.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgres.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>${model-mapper.version}</version>
+    </dependency>
+
+  </dependencies>
+  <build>
+    <finalName>movie</finalName>
+  </build>
+  <profiles>
+    <profile>
+      <id>payara-micro</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>fish.payara.maven.plugins</groupId>
+            <artifactId>payara-micro-maven-plugin</artifactId>
+            <version>1.0.1</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>bundle</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <payaraVersion>${payaraVersion}</payaraVersion>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>
